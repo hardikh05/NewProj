@@ -2,7 +2,7 @@ services:
   - type: web
     name: client
     env: static
-    buildCommand: cd client && NODE_OPTIONS=--openssl-legacy-provider npm install --legacy-peer-deps && npm run build
+    buildCommand: cd client && npm install --legacy-peer-deps && SKIP_PREFLIGHT_CHECK=true npm run build
     staticPublishPath: ./client/build
     envVars:
       - key: REACT_APP_API_URL
@@ -10,6 +10,8 @@ services:
           name: server
           type: web
           property: host
+      - key: SKIP_PREFLIGHT_CHECK
+        value: true
 
   - type: web
     name: server
