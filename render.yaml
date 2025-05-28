@@ -2,7 +2,7 @@ services:
   - type: web
     name: client
     env: static
-    buildCommand: cd client && npm install --legacy-peer-deps && SKIP_PREFLIGHT_CHECK=true npm run build
+    buildCommand: cd client && npm install --legacy-peer-deps --force && SKIP_PREFLIGHT_CHECK=true npm run build
     staticPublishPath: ./client/build
     envVars:
       - key: REACT_APP_API_URL
