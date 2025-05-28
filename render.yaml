@@ -9,7 +9,7 @@ services:
         fromService:
           name: server
           type: web
-          property: url
+          property: host
 
   - type: web
     name: server
