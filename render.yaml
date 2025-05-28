@@ -1,27 +1,23 @@
 services:
   - type: web
     name: client
-    env: docker
-    dockerfilePath: ./client/Dockerfile
-    buildCommand: docker build -t client-prod -f ./client/Dockerfile .
-    startCommand: docker run client-prod
+    env: static
+    buildCommand: cd client && npm install && npm run build
+    staticPublishPath: ./client/build
     envVars:
       - key: REACT_APP_API_URL
         fromService:
-          type: web
           name: server
-          property: host
-    autoDeploy: true
+          type: web
+          property: url
 
   - type: web
     name: server
-    env: docker
-    dockerfilePath: ./server/Dockerfile
-    buildCommand: docker build -t server-prod -f ./server/Dockerfile .
-    startCommand: docker run server-prod
+    env: node
+    buildCommand: cd server && npm install
+    startCommand: cd server && node index.js
     envVars:
       - key: PORT
         value: 5000
       - key: MONGODB_URI
-        sync: false # You'll set this in Render dashboard
-    autoDeploy: true 
+        sync: false 
